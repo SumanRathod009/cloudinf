@@ -25,7 +25,6 @@ jobs:
       - name: Testing with CFN Lint Command
         uses: scottbrenner/cfn-lint-action@v2
         run: |
-          cd $GITHUB_WORKSPACE
           setopt -s globstar # enable globbing
           cfn-lint --version $d
           cfn-lint -t ./**/*.yaml $d
