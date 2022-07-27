@@ -1,0 +1,37 @@
+name: Lint CloudFormation Templates
+
+on:
+  pull_request:
+    paths:
+       - '**.yaml'
+    branches:
+      - master
+
+jobs:
+  cloudformation-linter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout cfn
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@v2
+        with:
+         ref: ${{ github.event.pull_request.head.sha }} # Makes sure we get the latest commit from the PR
+      - name: Check out code on branch
+        if: github.event_name != 'pull_request'
+        uses: actions/checkout@v2
+        with:
+         ref: ${{ env.BRANCH }}
+      - name: Testing with CFN Lint Command
+        uses: scottbrenner/cfn-lint-action@v2
+        run: |
+          cd $GITHUB_WORKSPACE
+          setopt -s globstar # enable globbing
+          for d in $(find . -type d \( -not -path '**/.yaml*/**' -and -path './env/**' \) -exec sh -c '(ls -p "{}"|grep />/dev/null)||echo "{}"' \); do
+            cfn-lint --version $d
+            cfn-lint -t ./**/*.yaml $d
+          done
+          
+
+
+
