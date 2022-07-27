@@ -25,12 +25,10 @@ jobs:
       - name: Testing with CFN Lint Command
         uses: scottbrenner/cfn-lint-action@v2
         run: |
-          cd $GITHUB_WORKSPACE
           setopt -s globstar # enable globbing
-          for d in $(find . -type d \( -not -path '**/.yaml*/**' -and -path './env/**' \) -exec sh -c '(ls -p "{}"|grep />/dev/null)||echo "{}"' \); do
-            cfn-lint --version $d
-            cfn-lint -t ./**/*.yaml $d
-          done
+          cfn-lint --version $d
+          cfn-lint -t ./**/*.yaml $d
+      
           
 
 
