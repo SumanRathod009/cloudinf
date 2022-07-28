@@ -13,7 +13,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout cfn
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@v2
+
+      - name: Check out code on branch
+        if: github.event_name != 'pull_request'
         uses: actions/checkout@v2
 
       - name: Setup Cloud Formation Linter with Latest Version
