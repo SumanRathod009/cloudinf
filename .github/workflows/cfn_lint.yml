@@ -17,10 +17,7 @@ jobs:
         uses: scottbrenner/cfn-lint-action@v2
 
       - name: Testing with CFN Lint Command
-        with:
-          name: cfn_results
-          path: ${{ github.workspace }}
         run: |
             cfn-lint --version 
-            cfn-lint -t ./**/*.yaml 
+            cfn-lint -t ./**/*.yaml
           
