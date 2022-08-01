@@ -18,7 +18,6 @@ jobs:
 
       - name: Testing with CFN Lint Command
         run: |
-          cd $GITHUB_WORKSPACE
-          cfn-lint --version 
-          cfn-lint -t ./**/*.yaml 
+            cfn-lint --version 
+            cfn-lint -t ./**/*.yaml
           
