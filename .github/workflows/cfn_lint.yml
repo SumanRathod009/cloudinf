@@ -7,9 +7,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout cfn
-        uses: actions/checkout@v2
-
       - name: Check out code on branch
         uses: actions/checkout@v2
 
