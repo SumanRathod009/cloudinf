@@ -7,9 +7,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout cfn
-        uses: actions/checkout@v2
-
       - name: Check out code on branch
         uses: actions/checkout@v2
 
@@ -18,7 +15,6 @@ jobs:
 
       - name: Testing with CFN Lint Command
         run: |
-          cd $GITHUB_WORKSPACE
-          cfn-lint --version 
-          cfn-lint -t ./**/*.yaml 
+            cfn-lint --version 
+            cfn-lint -t ./**/*.yaml
           
