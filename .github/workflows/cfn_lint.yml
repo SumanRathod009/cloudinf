@@ -19,7 +19,7 @@ jobs:
       - name: Testing with CFN Lint Command
         run: |
           cd $GITHUB_WORKSPACE
-          for d in $(find . -type d \( -not -path '**/.terraform*/**' -and -path './env/**' -or -path './modules/**' \) -exec sh -c '(ls -p "{}"|grep />/dev/null)||echo "{}"' \; | sort | comm -12 terraform_v11_dirs.txt -); do
+          for d in $(find / -type d -name "cloudformation") cd $(realpath -s cloudformation);do
             cfn-lint --version $d
             cfn-lint -t ./**/*.yaml $d
           done
