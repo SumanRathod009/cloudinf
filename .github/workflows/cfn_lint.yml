@@ -17,6 +17,9 @@ jobs:
         uses: scottbrenner/cfn-lint-action@v2
 
       - name: Testing with CFN Lint Command
+        with:
+          name: cfn_results
+          path: ${{ github.workspace }}
         run: |
           cd $GITHUB_WORKSPACE
           for d in $(find . -type d \(-path './env/**' -or -path './cloudformation/**' \) -exec sh -c '(ls -p "{}"|grep />/dev/null)||echo "{}"' \;); do
