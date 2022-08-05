@@ -19,7 +19,6 @@ Parameters:
     Description: 'Home region of the bucket, which can be any supported region, considering any data sovereignty and regional requirements.'
     Type: String
     Default: 'us-west-1'
-    AllowedValues:
       - us-west-1
       - us-west-2
       - us-east-1
