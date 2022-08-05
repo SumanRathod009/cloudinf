@@ -13,5 +13,5 @@ Resources:
           Ebs:
             VolumeType: io1
             Iops: 200
-            DeleteOnTermination: false
+            DeleteOnTermination: true
             VolumeSize: 20
