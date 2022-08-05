@@ -96,8 +96,4 @@ Outputs:
     Description: 'Template version.'
     Value: '1.0'
 
-  TerraformLauncherStatus:
-    Description: "TerraformLauncher status."
-    Value: !GetAtt TerraformLauncher.status
-
 
