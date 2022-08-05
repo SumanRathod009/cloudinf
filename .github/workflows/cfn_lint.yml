@@ -1,24 +1,41 @@
-name: Lint CloudFormation Templates
+name: Cloudformation Validator
 
-on: push
+# This workflow validates all of the cloudformation code
+
+on:
+  pull_request:
+    paths:
+      - 'templates/cloudformation/**/*.yaml'
+      - 'templates/cloudformation/**/*.json'      
+      - 'cloudformation/**/*.yaml'
+      - 'cloudformation/**/*.yml'
+      - 'cloudformation/**/*.json'
+    branches:
+      - main
+  push:   # This is only run when PRs are merged into master
+    branches:
+      - main
 
 jobs:
   cloudformation-linter:
+    name: cfn-lint
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        python: [3.8]
     steps:
-      - name: Checkout cfn
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      - name: Check out code on branch
-        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
 
-      - name: Setup Cloud Formation Linter with Latest Version
-        uses: scottbrenner/cfn-lint-action@v2
-
-      - name: Testing with CFN Lint Command
+      - name: Install cfn-lint
+        run: |
+          pip install cfn-lint
+      - name: Print the CloudFormation linter version and run linter
         run: |
           cd $GITHUB_WORKSPACE
-          cfn-lint --version 
-          cfn-lint -t ./**/*.yaml 
-          
+          for fname in $(find ./cloudformation | egrep ".(yaml|yml|json)$"); do ; cfn-lint --template "${fname}" ; done
+          for fname in $(find ./templates/cloudformation | egrep ".(yaml|yml|json)$"); do ; cfn-lint --template "${fname}" ; done
