@@ -14,15 +14,15 @@ Metadata:
 Parameters:
   Environment:
     Type: String  
-    Description: 'Environment to determine the catalog.'
+    Description:'Environment to determine the catalog.'
     AllowedValues:
       - Dev
       - Test
       - Val
       - Prod
   DatabaseName:
-    Type: String
-    Description: 'Name of the database'
+    Type:String
+    Description:'Name of the database'
     AllowedPattern: '[a-zA-Z0-9_-]*'
     ConstraintDescription: 'Can contain only alphanumeric characters, dashes and underscores'
   TableName:
